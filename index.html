@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portafolio de Proyectos</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Gestión de portafolio</p>
+        <h1>Panel de proyectos con enfoque Kanban y control de avance</h1>
+        <p class="subtitle">
+          Organiza tu portafolio, sube cronogramas exportados desde Project y controla el
+          avance por tareas y WBS en un solo lugar.
+        </p>
+      </div>
+      <div class="hero-actions">
+        <button id="newProjectBtn" class="primary">Nuevo proyecto</button>
+        <button id="sampleDataBtn" class="ghost">Cargar ejemplo</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="board">
+        <div class="board-column" data-status="backlog">
+          <div class="board-header">
+            <h2>Backlog</h2>
+            <span class="count" id="count-backlog">0</span>
+          </div>
+          <div class="board-cards" id="column-backlog"></div>
+        </div>
+        <div class="board-column" data-status="in-progress">
+          <div class="board-header">
+            <h2>En progreso</h2>
+            <span class="count" id="count-in-progress">0</span>
+          </div>
+          <div class="board-cards" id="column-in-progress"></div>
+        </div>
+        <div class="board-column" data-status="done">
+          <div class="board-header">
+            <h2>Completados</h2>
+            <span class="count" id="count-done">0</span>
+          </div>
+          <div class="board-cards" id="column-done"></div>
+        </div>
+      </section>
+
+      <aside class="detail">
+        <div class="detail-header">
+          <div>
+            <p class="eyebrow">Detalle del proyecto</p>
+            <h2 id="detailTitle">Selecciona un proyecto</h2>
+            <p id="detailMeta" class="muted">Para comenzar, haz clic en una tarjeta.</p>
+          </div>
+          <select id="detailStatus" class="status-select" disabled>
+            <option value="backlog">Backlog</option>
+            <option value="in-progress">En progreso</option>
+            <option value="done">Completado</option>
+          </select>
+        </div>
+
+        <div class="detail-card">
+          <div class="detail-row">
+            <div>
+              <h3>Cronograma</h3>
+              <p class="muted">
+                Sube un archivo CSV exportado desde Project con columnas como: Task, Start,
+                Finish, WBS, Progress.
+              </p>
+            </div>
+            <label class="file">
+              Subir cronograma
+              <input type="file" id="scheduleUpload" accept=".csv" disabled />
+            </label>
+          </div>
+
+          <div class="tasks">
+            <div class="tasks-header">
+              <div>
+                <h3>Listado de tareas</h3>
+                <p class="muted">Define tareas, fechas y avances por WBS.</p>
+              </div>
+              <button id="addTaskBtn" class="secondary" disabled>Agregar tarea</button>
+            </div>
+            <div class="task-table">
+              <div class="task-row task-head">
+                <span>Tarea</span>
+                <span>Inicio</span>
+                <span>Fin</span>
+                <span>WBS</span>
+                <span>Peso</span>
+                <span>Avance %</span>
+                <span></span>
+              </div>
+              <div id="taskRows"></div>
+            </div>
+          </div>
+
+          <div class="progress-card">
+            <div>
+              <h3>Avance general (WBS ponderado)</h3>
+              <p id="overallProgressLabel" class="muted">Sin datos aún.</p>
+            </div>
+            <div class="progress-track">
+              <div id="overallProgressBar" class="progress-bar" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <dialog id="projectDialog" class="dialog">
+      <form method="dialog" id="projectForm">
+        <div class="dialog-header">
+          <h3>Nuevo proyecto</h3>
+          <button class="ghost" value="cancel">Cerrar</button>
+        </div>
+        <label>
+          Nombre del proyecto
+          <input name="name" type="text" placeholder="Migración CRM" required />
+        </label>
+        <label>
+          Responsable
+          <input name="owner" type="text" placeholder="Equipo PMO" required />
+        </label>
+        <label>
+          Descripción
+          <textarea name="description" rows="3" placeholder="Objetivo, alcance, entregables."></textarea>
+        </label>
+        <label>
+          Estado inicial
+          <select name="status">
+            <option value="backlog">Backlog</option>
+            <option value="in-progress">En progreso</option>
+            <option value="done">Completado</option>
+          </select>
+        </label>
+        <button class="primary" value="submit">Crear proyecto</button>
+      </form>
+    </dialog>
+
+    <script src="script.js"></script>
+  </body>
+</html>
